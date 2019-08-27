@@ -11,6 +11,7 @@ const {
   reduceUserDetails
 } = require('../util/validators');
 
+
 // Sign users up
 exports.signup = (req, res) => {
   const newUser = {
@@ -39,7 +40,6 @@ exports.signup = (req, res) => {
       }
     })
     .then((data) => {
-      // console.log(data)
       userId = data.user.uid;
       return data.user.getIdToken();
     })
@@ -70,6 +70,8 @@ exports.signup = (req, res) => {
       }
     });
 };
+
+
 // Log user in
 exports.login = (req, res) => {
   const user = {
@@ -100,6 +102,7 @@ exports.login = (req, res) => {
     });
 };
 
+
 //Add user details
 exports.addUserDetails = (req, res) => {
   let userDetails = reduceUserDetails(req.body);
@@ -114,6 +117,8 @@ exports.addUserDetails = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
+
+
 //Get any user's details
 exports.getUserDetails = (req, res) => {
   let userData = {};
@@ -151,6 +156,8 @@ exports.getUserDetails = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
+
+
 //Get own user details
 exports.getAuthenticatedUser = (req, res) => {
   let userData = {};
@@ -198,6 +205,8 @@ exports.getAuthenticatedUser = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
+
+
 // Upload a profile image for user
 exports.uploadImage = (req, res) => {
   const BusBoy = require('busboy');
@@ -253,6 +262,7 @@ exports.uploadImage = (req, res) => {
   });
   busboy.end(req.rawBody);
 };
+
 
 exports.markNotificationsRead = (req, res) => {
   let batch = db.batch();

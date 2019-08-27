@@ -25,6 +25,7 @@ exports.getAllScreams = (req, res) => {
     });
 };
 
+// Post a scream
 exports.postOneScream = (req, res) => {
   if (req.body.body.trim() === '') {
     return res.status(400).json({ body: 'Body must not be empty' });
@@ -52,6 +53,7 @@ exports.postOneScream = (req, res) => {
     });
 };
 
+// Get Screams
 exports.getScream = (req, res) => {
   let screamData = {};
   db.doc(`/screams/${req.params.screamId}`)
@@ -93,7 +95,6 @@ exports.commentOnScream = (req, res) => {
     userHandle: req.user.handle,
     userImage: req.user.imageUrl
   };
-  // console.log(newComment);
 
   db.doc(`/screams/${req.params.screamId}`)
     .get()
@@ -114,6 +115,7 @@ exports.commentOnScream = (req, res) => {
       res.status(500).json({ error: 'Something went wrong' });
     });
 };
+
 // Like a scream
 exports.likeScream = (req, res) => {
   const likeDocument = db
@@ -162,6 +164,7 @@ exports.likeScream = (req, res) => {
     });
 };
 
+// Unlike a scream
 exports.unlikeScream = (req, res) => {
   const likeDocument = db
     .collection('likes')
@@ -205,6 +208,7 @@ exports.unlikeScream = (req, res) => {
       res.status(500).json({ error: err.code });
     });
 };
+
 // Delete a scream
 exports.deleteScream = (req, res) => {
   const document = db.doc(`/screams/${req.params.screamId}`);
